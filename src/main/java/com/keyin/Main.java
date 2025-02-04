@@ -17,7 +17,7 @@ public class Main {
             int totalWorkoutTime = progress[1];
 
             // Check if the goal is reached and display the message if it is
-            fitnessTracker.checkGoalCompletion(totalCaloriesBurned, totalWorkoutTime);
+            fitnessTracker.checkGoalCompletion(totalCaloriesBurned, totalWorkoutTime, scanner);
 
             System.out.println("\n\n--- Fitness Tracker ---");
             System.out.println("1. Add a Workout");
