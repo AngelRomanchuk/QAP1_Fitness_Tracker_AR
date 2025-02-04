@@ -12,7 +12,14 @@ public class Main {
         boolean running = true;
 
         while (running) {
-            System.out.println("\n--- Fitness Tracker ---");
+            int[] progress = fitnessTracker.calculateTotalProgress();
+            int totalCaloriesBurned = progress[0];
+            int totalWorkoutTime = progress[1];
+
+            // Check if the goal is reached and display the message if it is
+            fitnessTracker.checkGoalCompletion(totalCaloriesBurned, totalWorkoutTime);
+
+            System.out.println("\n\n--- Fitness Tracker ---");
             System.out.println("1. Add a Workout");
             System.out.println("2. View Workouts");
             System.out.println("3. Track Progress");

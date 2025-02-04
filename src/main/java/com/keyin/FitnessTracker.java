@@ -2,11 +2,12 @@ package com.keyin;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class FitnessTracker {
     private List<Workout> workouts;
     private Goal goal;
+    private boolean congratulatedForCalories = false;
+    private boolean congratulatedForMinutes = false;
 
     public FitnessTracker(Goal goal) {
         this.workouts = new ArrayList<>();
@@ -28,16 +29,36 @@ public class FitnessTracker {
         }
     }
 
-    public void trackProgress() {
-        int totalCaloriesBurned = 0;
-        int totalWorkoutTime = 0;
+    public int[] calculateTotalProgress() {
+            int totalCaloriesBurned = 0;
+            int totalWorkoutTime = 0;
 
-        for (Workout workout : workouts) {
-            totalCaloriesBurned += workout.getCaloriesBurned();
-            totalWorkoutTime += workout.getDurationInMinutes();
+            // Sum the total calories burned and total workout time
+            for (Workout workout : workouts) {
+                totalCaloriesBurned += workout.getCaloriesBurned();
+                totalWorkoutTime += workout.getDurationInMinutes();
+            }
+
+            // Return as an array: [totalCaloriesBurned, totalWorkoutTime]
+            return new int[] { totalCaloriesBurned, totalWorkoutTime };
         }
 
-        goal.showProgress(totalCaloriesBurned, totalWorkoutTime);
+    // Method to check and display goal completion
+        public void checkGoalCompletion(int totalCaloriesBurned, int totalWorkoutTime) {
+            if (totalCaloriesBurned >= goal.getTargetCalories() && !congratulatedForCalories) {
+                System.out.println("\nGoal for " + goal.getTargetCalories() + " calories reached. Congratulations!");
+                congratulatedForCalories = true; // Ensure the message only shows once
+            }
+
+            if (totalWorkoutTime >= goal.getTargetMinutes() && !congratulatedForMinutes) {
+                System.out.println("\nGoal for " + goal.getTargetMinutes() + " minutes reached. Congratulations!");
+                congratulatedForMinutes = true; // Ensure the message only shows once
+            }
+        }
+
+    public void trackProgress() {
+        int[] progress = calculateTotalProgress();
+        goal.showProgress(progress[0], progress[1]); // Show goal progress
     }
 }
 

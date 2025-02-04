@@ -1,19 +1,19 @@
 package com.keyin;
 
 public class Goal {
-    private int targetCalories;
-    private int targetMinutes;
+    private static int targetCalories;
+    private static int targetMinutes;
 
     public Goal(int targetCalories, int targetMinutes) {
         this.targetCalories = targetCalories;
         this.targetMinutes = targetMinutes;
     }
 
-    public int getTargetCalories() {
+    public static int getTargetCalories() {
         return targetCalories;
     }
 
-    public int getTargetMinutes() {
+    public static int getTargetMinutes() {
         return targetMinutes;
     }
 
