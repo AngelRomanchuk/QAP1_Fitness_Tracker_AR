@@ -53,7 +53,7 @@ public class FitnessTracker {
 
             // Prompt the user to set a new goal for calories
             System.out.println("Would you like to set a new calorie goal?");
-            System.out.print("Enter new calorie goal (or -1 to keep current): ");
+            System.out.print("Enter new calorie goal: ");
             int newCaloriesGoal = scanner.nextInt() + goal.getTargetCalories();
             goal.setTargetCalories(newCaloriesGoal);
 

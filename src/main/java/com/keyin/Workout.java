@@ -23,6 +23,14 @@ public class Workout {
         return caloriesBurned;
     }
 
+    public void setDurationInMinutes(int durationInMinutes) {
+        this.durationInMinutes = durationInMinutes;
+    }
+
+    public void setCaloriesBurned(int caloriesBurned) {
+        this.caloriesBurned = caloriesBurned;
+    }
+
     @Override
     public String toString() {
         return String.format("Workout Type: %s, Duration: %d mins, Calories Burned: %d",
