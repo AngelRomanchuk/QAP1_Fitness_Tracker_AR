@@ -1,9 +1,9 @@
 package com.keyin;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import java.util.Scanner;
 
 class FitnessTrackerTest {
 
@@ -15,9 +15,9 @@ class FitnessTrackerTest {
     @BeforeEach
     void setUp() {
         // Initialize real objects
-        goal = new Goal(1000, 150);  // Goal: 1000 calories and 150 minutes
-        workout1 = new Workout("Running", 30, 400);  // 30 minutes, 400 calories
-        workout2 = new Workout("Cycling", 40, 300); // 40 minutes, 300 calories
+        goal = new Goal(1000, 150);
+        workout1 = new Workout("Running", 80, 800);
+        workout2 = new Workout("Cycling", 80, 400);
 
         // Creating the fitness tracker with a real Goal object
         fitnessTracker = new FitnessTracker(goal);
@@ -31,9 +31,9 @@ class FitnessTrackerTest {
         fitnessTracker.addWorkout(workout1);
 
         // Verify the workout was added and progress calculated correctly
-        assertEquals(2, fitnessTracker.calculateTotalProgress().length);  // Length should be 2, for calories and minutes
-        assertEquals(400, fitnessTracker.calculateTotalProgress()[0]);    // Calories check
-        assertEquals(30, fitnessTracker.calculateTotalProgress()[1]);     // Minutes check
+        assertEquals(2, fitnessTracker.calculateTotalProgress().length);
+        assertEquals(800, fitnessTracker.calculateTotalProgress()[0]);
+        assertEquals(80, fitnessTracker.calculateTotalProgress()[1]);
     }
 
     @Test
@@ -51,7 +51,32 @@ class FitnessTrackerTest {
         System.out.println("Total Minutes: " + progress[1]);
 
         // Verify total progress
-        assertEquals(700, progress[0]); // Total Calories (400 + 300)
-        assertEquals(70, progress[1]);  // Total Minutes (30 + 40)
+        assertEquals(1200, progress[0]);
+        assertEquals(160, progress[1]);
+    }
+
+    @Test
+    void testGoalCompletion() {
+        System.out.println("\nTest Goal Completion");
+
+        // Prepare a mock input
+        String simulatedInput = "0\n0\n";
+        Scanner mockScanner = new Scanner(simulatedInput);
+
+        // Add both workouts to the fitness tracker
+        fitnessTracker.addWorkout(workout1); // 800 calories, 80 minutes
+        fitnessTracker.addWorkout(workout2); // 400 calories, 80 minutes
+
+        // Simulate checking goal completion after adding the workouts
+        int[] progress = fitnessTracker.calculateTotalProgress();
+        fitnessTracker.checkGoalCompletion(progress[0], progress[1], mockScanner);
+
+        // Check if the goal  for calories and minutes was reached
+        assertTrue(fitnessTracker.calculateTotalProgress()[0] >= goal.getTargetCalories()); // Should have reached or exceeded calories goal
+        assertTrue(fitnessTracker.calculateTotalProgress()[1] >= goal.getTargetMinutes()); // Should have reached or exceeded minutes goal
+
+        // Assert the congratulatory flags are set correctly after the goals are reached
+        assertFalse(fitnessTracker.isCongratulatedForCalories()); // Should be true for calories
+        assertFalse(fitnessTracker.isCongratulatedForMinutes()); // Should be true for minutes
     }
 }

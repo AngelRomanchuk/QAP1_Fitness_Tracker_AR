@@ -49,33 +49,39 @@ public class FitnessTracker {
         // Check if calories goal is reached
         if (totalCaloriesBurned >= goal.getTargetCalories() && !congratulatedForCalories) {
             System.out.println("\nGoal for " + goal.getTargetCalories() + " calories reached. Congratulations!");
-            congratulatedForCalories = true; // Ensure the message only shows once
+            congratulatedForCalories = true; // Set the flag when goal is reached
 
-            // Prompt the user to set a new goal for calories
+            // Prompt the user to set a new calorie goal
             System.out.println("Would you like to set a new calorie goal?");
             System.out.print("Enter new calorie goal: ");
             int newCaloriesGoal = scanner.nextInt() + goal.getTargetCalories();
             goal.setTargetCalories(newCaloriesGoal);
 
-
-            // Reset the congratulation flag
-            congratulatedForCalories = false;
+             congratulatedForCalories = false;
         }
 
         // Check if minutes goal is reached
         if (totalWorkoutTime >= goal.getTargetMinutes() && !congratulatedForMinutes) {
             System.out.println("\nGoal for " + goal.getTargetMinutes() + " minutes reached. Congratulations!");
-            congratulatedForMinutes = true; // Ensure the message only shows once
+            congratulatedForMinutes = true; // Set the flag when goal is reached
 
-            // Prompt the user to set a new goal for time
+            // Prompt the user to set a new time goal
             System.out.println("Would you like to set a new time goal?");
             System.out.print("Enter new time goal in minutes: ");
             int newTimeGoal = scanner.nextInt() + goal.getTargetMinutes();
             goal.setTargetMinutes(newTimeGoal);
 
-            // Reset the congratulation flag
-            congratulatedForMinutes = false;
+             congratulatedForMinutes = false;
         }
+    }
+
+    // Getter methods for the congratulation flags
+    public boolean isCongratulatedForCalories() {
+        return congratulatedForCalories;
+    }
+
+    public boolean isCongratulatedForMinutes() {
+        return congratulatedForMinutes;
     }
 
     public void trackProgress() {
