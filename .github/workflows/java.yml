@@ -22,7 +22,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '21'
-          distribution: 'adoptium'
+          distribution: 'temurin'
 
       # Verify Java version (optional step)
       - name: Verify Java version
